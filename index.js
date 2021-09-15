@@ -2,16 +2,17 @@ class Parable {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = null;
+        this.pixelsForEachUnit = 40;
         if (this.canvas.getContext) {
             this.ctx = this.canvas.getContext('2d');
             this.ctx.strokeStyle = "black";
-            this.drawAxes(40);
+            this.drawAxes();
         }
         this.fixingParableFactorX = 1.15;
         this.fixingParableFactorY = 1.25;
     }
 
-    drawAxes(distancePoints) {
+    drawAxes() {
         if (this.ctx) {
             this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
     
@@ -23,14 +24,14 @@ class Parable {
             this.ctx.moveTo(0, 0);
             
             this.ctx.font = "12px Arial";
-            for (let i = -this.canvas.width; i < this.canvas.width; i += distancePoints)
+            for (let i = -this.canvas.width; i < this.canvas.width; i += this.pixelsForEachUnit)
             {
                 if (i != 0) {
                     this.ctx.moveTo(i, 10);
                     this.ctx.lineTo(i, -10);
-                    this.ctx.fillText(`${i / distancePoints}`, i - 4, 25)
+                    this.ctx.fillText(`${i / this.pixelsForEachUnit}`, i - 4, 25)
                 } else {
-                    this.ctx.fillText(`${i / distancePoints}`, i - 10, 20)
+                    this.ctx.fillText(`${i / this.pixelsForEachUnit}`, i - 10, 20)
                 }
             }
     
@@ -39,12 +40,12 @@ class Parable {
     
             this.ctx.moveTo(0, 0);
     
-            for (let i = -this.canvas.height; i < this.canvas.height; i += distancePoints)
+            for (let i = -this.canvas.height; i < this.canvas.height; i += this.pixelsForEachUnit)
             {
                 if (i != 0) {
                     this.ctx.moveTo(10, i);
                     this.ctx.lineTo(-10, i);
-                    this.ctx.fillText(`${-i / distancePoints}`, 25, i + 4)
+                    this.ctx.fillText(`${-i / this.pixelsForEachUnit}`, 25, i + 4)
                 }
             }
     
@@ -77,9 +78,9 @@ class Parable {
         const symmetricalX = Math.sqrt(Math.abs(doubleP * p2));
         document.getElementById('symmetricalPoint').innerHTML = `Pontos simétricos usados: ${symmetricalX} e ${-symmetricalX}`;
         
-        const symmetricalXWeb = symmetricalX * 40;
-        const p2Web = - (p2 * 40);
-        const directrixWeb = - (directrix * 40);
+        const symmetricalXWeb = symmetricalX * this.pixelsForEachUnit;
+        const p2Web = - (p2 * this.pixelsForEachUnit);
+        const directrixWeb = - (directrix * this.pixelsForEachUnit);
 
         this.clearCanvas();
         
@@ -126,9 +127,9 @@ class Parable {
         document.getElementById('symmetricalPoint').innerHTML = `Pontos simétricos usados: ${symmetricalY} e ${-symmetricalY}`;
 
         
-        const symmetricalYWeb = symmetricalY * 40;
-        const p2Web = (p2 * 40);
-        const directrixWeb = (directrix * 40);
+        const symmetricalYWeb = symmetricalY * this.pixelsForEachUnit;
+        const p2Web = (p2 * this.pixelsForEachUnit);
+        const directrixWeb = (directrix * this.pixelsForEachUnit);
 
         this.clearCanvas();
         
@@ -157,7 +158,7 @@ class Parable {
         if (this.ctx) {
             this.ctx.translate(-(this.canvas.width / 2), - (this.canvas.height/2));
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.drawAxes(40);
+            this.drawAxes();
         }
     }
 }
