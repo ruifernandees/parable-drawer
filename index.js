@@ -4,6 +4,7 @@ class Parable {
         this.ctx = null;
         if (this.canvas.getContext) {
             this.ctx = this.canvas.getContext('2d');
+            this.ctx.strokeStyle = "black";
             this.drawAxes(40);
         }
     }
@@ -84,12 +85,16 @@ class Parable {
                 anticlockwise = true;
             }
             this.ctx.arc(0, p2Web * 2, radius, 0, Math.PI, anticlockwise)
+            this.ctx.strokeStyle = "red";
             this.ctx.stroke();
 
             this.ctx.beginPath();
             this.ctx.moveTo(-(this.canvas.width / 2), directrixWeb);
             this.ctx.lineTo(this.canvas.width / 2, directrixWeb);
+
+            this.ctx.strokeStyle = "blue";
             this.ctx.stroke();
+            this.ctx.strokeStyle = "black";
         }
     }
 
@@ -125,12 +130,15 @@ class Parable {
                 anticlockwise = true;
             }
             this.ctx.arc(p2Web * 2, 0, radius, Math.PI / 2, 1.5 * Math.PI, anticlockwise)
+            this.ctx.strokeStyle = "red";
             this.ctx.stroke();
 
             this.ctx.beginPath();
             this.ctx.moveTo(directrixWeb, -(this.canvas.height / 2));
             this.ctx.lineTo(directrixWeb, this.canvas.height / 2);
+            this.ctx.strokeStyle = "blue";
             this.ctx.stroke();
+            this.ctx.strokeStyle = "black";
         }
     }
 
