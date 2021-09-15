@@ -84,8 +84,40 @@ class Parable {
             this.ctx.arc(0, p2Web * 2, radius, 0, Math.PI, anticlockwise)
             this.ctx.stroke();
         }
-
     }
+
+    drawParableYAxis() {
+        const doubleP = document.getElementById('doublePY').value;
+
+        if (doubleP < 1 && doubleP > - 1 && doubleP != 0) {
+            return;
+        }
+
+        const p = doubleP / 2;
+        const p2 = p / 2;
+        console.log(`Foco: (${p2}, 0)`)
+        console.log(`Diretriz: ${-p2}`)
+
+        const symmetricalY = Math.sqrt(Math.abs(doubleP * p2));
+        console.log(symmetricalY)
+        
+        const symmetricalYWeb = symmetricalY * 40;
+        const p2Web = (p2 * 40);
+
+        this.clearCanvas();
+        
+        if (this.ctx) {
+            this.ctx.beginPath();
+            let radius = symmetricalYWeb;
+            let anticlockwise = false;
+            if (doubleP < 0) {
+                anticlockwise = true;
+            }
+            this.ctx.arc(p2Web * 2, 0, radius, Math.PI / 2, 1.5 * Math.PI, anticlockwise)
+            this.ctx.stroke();
+        }
+    }
+
     
     clearCanvas() {
         if (this.ctx) {
