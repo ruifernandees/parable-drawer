@@ -1,101 +1,94 @@
-function getCtx() {
-    const canvas = document.getElementById('myCanvas');
-
-    if (canvas.getContext) {
-        const ctx = canvas.getContext('2d');
-        return ctx;
+class Parable {
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = null;
+        if (this.canvas.getContext) {
+            this.ctx = this.canvas.getContext('2d');
+            this.drawAxes(40);
+        }
     }
 
-    return null;
-}
-
-function drawAxes(ctx, canvasWidth, canvasHeight, distancePoints) {
-    ctx.translate(canvasWidth / 2, canvasHeight / 2);
-
-    ctx.beginPath();
-
-    ctx.moveTo(-(canvasWidth / 2), 0);
-    ctx.lineTo(canvasWidth / 2, 0);
-
-    ctx.moveTo(0, 0);
+    drawAxes(distancePoints) {
+        if (this.ctx) {
+            this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
     
-    ctx.font = "12px Arial";
-    for (let i = -canvasWidth; i < canvasWidth; i += distancePoints)
-    {
-        if (i != 0) {
-            ctx.moveTo(i, 10);
-            ctx.lineTo(i, -10);
-            ctx.fillText(`${i / distancePoints}`, i - 4, 25)
+            this.ctx.beginPath();
+    
+            this.ctx.moveTo(-(this.canvas.width / 2), 0);
+            this.ctx.lineTo(this.canvas.width / 2, 0);
+    
+            this.ctx.moveTo(0, 0);
+            
+            this.ctx.font = "12px Arial";
+            for (let i = -this.canvas.width; i < this.canvas.width; i += distancePoints)
+            {
+                if (i != 0) {
+                    this.ctx.moveTo(i, 10);
+                    this.ctx.lineTo(i, -10);
+                    this.ctx.fillText(`${i / distancePoints}`, i - 4, 25)
+                } else {
+                    this.ctx.fillText(`${i / distancePoints}`, i - 10, 20)
+                }
+            }
+    
+            this.ctx.moveTo(0, -(this.canvas.height / 2));
+            this.ctx.lineTo(0, (this.canvas.height / 2));
+    
+            this.ctx.moveTo(0, 0);
+    
+            for (let i = -this.canvas.height; i < this.canvas.height; i += distancePoints)
+            {
+                if (i != 0) {
+                    this.ctx.moveTo(10, i);
+                    this.ctx.lineTo(-10, i);
+                    this.ctx.fillText(`${-i / distancePoints}`, 25, i + 4)
+                }
+            }
+    
+            this.ctx.moveTo(0,0);
+            this.ctx.fillText("y", -20, (-this.canvas.height / 2) + 10);
+            this.ctx.fillText("x", (this.canvas.width / 2) - 10, -20);
+            this.ctx.stroke();
         } else {
-            ctx.fillText(`${i / distancePoints}`, i - 10, 20)
+            console.warn("Missing context");
         }
     }
 
-    ctx.moveTo(0, -(canvasHeight / 2));
-    ctx.lineTo(0, (canvasHeight / 2));
+    drawParable() {
+        const paramY = document.getElementById('paramY').value;
+        const p = paramY / 2;
+        const p2 = p / 2;
+        console.log(`Foco: (0, ${p2})`)
+        console.log(`Diretriz: ${-p2}`)
 
-    ctx.moveTo(0, 0);
+        const xFocus = Math.sqrt(paramY * p2);
+        console.log(xFocus)
+        
+        const pWeb = p * 40;
+        const p2Web = p2 * 40;
 
-    for (let i = -canvasHeight; i < canvasHeight; i += distancePoints)
-    {
-        if (i != 0) {
-            ctx.moveTo(10, i);
-            ctx.lineTo(-10, i);
-            ctx.fillText(`${-i / distancePoints}`, 25, i + 4)
+        this.clearCanvas();
+        
+        if (this.ctx) {
+            this.ctx.beginPath();
+            let radius = p2Web;
+            let anticlockwise = false;
+            if (p2Web < 0) {
+                radius *= -1;
+                anticlockwise = true;
+            }
+            this.ctx.arc(0, -p2Web, radius, 0, Math.PI, anticlockwise)
+            this.ctx.stroke();
+        }
+
+    }
+    clearCanvas() {
+        if (this.ctx) {
+            this.ctx.translate(-(this.canvas.width / 2), - (this.canvas.height/2));
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.drawAxes(40);
         }
     }
-
-    ctx.moveTo(0,0);
-    ctx.fillText("y", -20, (-canvasHeight / 2) + 10);
-    ctx.fillText("x", (canvasWidth / 2) - 10, -20);
-    ctx.stroke();
 }
 
-function drawParable() {
-    const paramY = document.getElementById('paramY').value;
-    const p = paramY / 2;
-    const p2 = p / 2;
-    console.log(`Foco: (0, ${p2})`)
-    console.log(`Diretriz: ${-p2}`)
-
-    const xFocus = Math.sqrt(paramY * p2);
-    console.log(xFocus)
-    
-    const pWeb = p * 40;
-    const p2Web = p2 * 40;
-
-    const ctx = getCtx();
-    clearCanvas();
-    
-    if (ctx) {
-        ctx.beginPath();
-        let radius = p2Web;
-        let anticlockwise = false;
-        if (p2Web < 0) {
-            radius *= -1;
-            anticlockwise = true;
-        }
-        ctx.arc(0, -p2Web, radius, 0, Math.PI, anticlockwise)
-        ctx.stroke();
-    }
-
-}
-
-function clearCanvas() {
-    const canvas = document.getElementById('myCanvas');
-    
-    if (canvas.getContext) {
-        const ctx = canvas.getContext('2d');
-        ctx.translate(-(canvas.width / 2), - (canvas.height/2));
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawAxes(ctx, canvas.width, canvas.height, 40);
-    }
-}
-
-const canvas = document.getElementById('myCanvas');
-
-if (canvas.getContext) {
-    const ctx = canvas.getContext('2d');
-    drawAxes(ctx, canvas.width, canvas.height, 40);
-    
-}
+const parable = new Parable('myCanvas');
