@@ -7,6 +7,8 @@ class Parable {
             this.ctx.strokeStyle = "black";
             this.drawAxes(40);
         }
+        this.fixingParableFactorX = 1.15;
+        this.fixingParableFactorY = 1.25;
     }
 
     drawAxes(distancePoints) {
@@ -83,12 +85,12 @@ class Parable {
         
         if (this.ctx) {
             this.ctx.beginPath();
-            let radius = symmetricalXWeb * 1.15;
+            let radius = symmetricalXWeb * this.fixingParableFactorX;
             let anticlockwise = false;
             if (doubleP < 0) {
                 anticlockwise = true;
             }
-            this.ctx.arc(0, p2Web * 2 * 1.15, radius, 0, Math.PI, anticlockwise)
+            this.ctx.arc(0, p2Web * 2 * this.fixingParableFactorX, radius, 0, Math.PI, anticlockwise)
             this.ctx.strokeStyle = "red";
             this.ctx.stroke();
 
@@ -132,12 +134,12 @@ class Parable {
         
         if (this.ctx) {
             this.ctx.beginPath();
-            let radius = symmetricalYWeb * 1.25;
+            let radius = symmetricalYWeb * this.fixingParableFactorY;
             let anticlockwise = false;
             if (doubleP < 0) {
                 anticlockwise = true;
             }
-            this.ctx.arc(p2Web * 2 * 1.25, 0, radius, Math.PI / 2, 1.5 * Math.PI, anticlockwise)
+            this.ctx.arc(p2Web * 2 * this.fixingParableFactorY, 0, radius, Math.PI / 2, 1.5 * Math.PI, anticlockwise)
             this.ctx.strokeStyle = "red";
             this.ctx.stroke();
 
