@@ -64,13 +64,15 @@ class Parable {
         const p = doubleP / 2;
         const p2 = p / 2;
         document.getElementById('focus').innerHTML = `Foco: (0, ${p2})`;
-        document.getElementById('directrix').innerHTML = `Diretriz: ${-p2}`;
+        const directrix = -p2;
+        document.getElementById('directrix').innerHTML = `Diretriz: ${-directrix}`;
         
         const symmetricalX = Math.sqrt(Math.abs(doubleP * p2));
         document.getElementById('symmetricalPoint').innerHTML = `Pontos simétricos usados: ${symmetricalX} e ${-symmetricalX}`;
         
         const symmetricalXWeb = symmetricalX * 40;
         const p2Web = - (p2 * 40);
+        const directrixWeb = - (directrix * 40);
 
         this.clearCanvas();
         
@@ -82,6 +84,11 @@ class Parable {
                 anticlockwise = true;
             }
             this.ctx.arc(0, p2Web * 2, radius, 0, Math.PI, anticlockwise)
+            this.ctx.stroke();
+
+            this.ctx.beginPath();
+            this.ctx.moveTo(-(this.canvas.width / 2), directrixWeb);
+            this.ctx.lineTo(this.canvas.width / 2, directrixWeb);
             this.ctx.stroke();
         }
     }
@@ -96,7 +103,8 @@ class Parable {
         const p = doubleP / 2;
         const p2 = p / 2;
         document.getElementById('focus').innerHTML = `Foco: (0, ${p2})`;
-        document.getElementById('directrix').innerHTML = `Diretriz: ${-p2}`;
+        const directrix = -p2;
+        document.getElementById('directrix').innerHTML = `Diretriz: ${directrix}`;
 
 
         const symmetricalY = Math.sqrt(Math.abs(doubleP * p2));
@@ -105,6 +113,7 @@ class Parable {
         
         const symmetricalYWeb = symmetricalY * 40;
         const p2Web = (p2 * 40);
+        const directrixWeb = (directrix * 40);
 
         this.clearCanvas();
         
@@ -116,6 +125,11 @@ class Parable {
                 anticlockwise = true;
             }
             this.ctx.arc(p2Web * 2, 0, radius, Math.PI / 2, 1.5 * Math.PI, anticlockwise)
+            this.ctx.stroke();
+
+            this.ctx.beginPath();
+            this.ctx.moveTo(directrixWeb, -(this.canvas.height / 2));
+            this.ctx.lineTo(directrixWeb, this.canvas.height / 2);
             this.ctx.stroke();
         }
     }
