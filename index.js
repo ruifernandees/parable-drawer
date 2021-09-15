@@ -65,7 +65,7 @@ class Parable {
         const p2 = p / 2;
         document.getElementById('focus').innerHTML = `Foco: (0, ${p2})`;
         const directrix = -p2;
-        document.getElementById('directrix').innerHTML = `Diretriz: ${-directrix}`;
+        document.getElementById('directrix').innerHTML = `Diretriz: ${directrix}`;
         
         const symmetricalX = Math.sqrt(Math.abs(doubleP * p2));
         document.getElementById('symmetricalPoint').innerHTML = `Pontos simétricos usados: ${symmetricalX} e ${-symmetricalX}`;
