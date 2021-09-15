@@ -54,34 +54,39 @@ class Parable {
         }
     }
 
-    drawParable() {
-        const paramY = document.getElementById('paramY').value;
-        const p = paramY / 2;
+    drawParableXAxis() {
+        const doubleP = document.getElementById('doubleP').value;
+
+        if (doubleP < 1 && doubleP > - 1 && doubleP != 0) {
+            return;
+        }
+
+        const p = doubleP / 2;
         const p2 = p / 2;
         console.log(`Foco: (0, ${p2})`)
         console.log(`Diretriz: ${-p2}`)
 
-        const xFocus = Math.sqrt(paramY * p2);
-        console.log(xFocus)
+        const symmetricalX = Math.sqrt(Math.abs(doubleP * p2));
+        console.log(symmetricalX)
         
-        const pWeb = p * 40;
-        const p2Web = p2 * 40;
+        const symmetricalXWeb = symmetricalX * 40;
+        const p2Web = - (p2 * 40);
 
         this.clearCanvas();
         
         if (this.ctx) {
             this.ctx.beginPath();
-            let radius = p2Web;
+            let radius = symmetricalXWeb;
             let anticlockwise = false;
-            if (p2Web < 0) {
-                radius *= -1;
+            if (doubleP < 0) {
                 anticlockwise = true;
             }
-            this.ctx.arc(0, -p2Web, radius, 0, Math.PI, anticlockwise)
+            this.ctx.arc(0, p2Web * 2, radius, 0, Math.PI, anticlockwise)
             this.ctx.stroke();
         }
 
     }
+    
     clearCanvas() {
         if (this.ctx) {
             this.ctx.translate(-(this.canvas.width / 2), - (this.canvas.height/2));
