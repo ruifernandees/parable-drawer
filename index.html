@@ -9,14 +9,30 @@
     <style>
         .data {
             margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .data .equation {
+            display: flex;
+            align-items: center;
+        }
+        .data .equation input {
+            width: 20px;
+            height: 20px;
+            margin: 0 10px;
         }
     </style>
 </head>
 <body>
     <section class="data">
-        <input type="text">
+        <div class="equation">
+            <p>x² = </p>
+            <input type="text" id="paramY">
+            <p>* y</p>
+        </div>
         <button onclick="drawParable();">Gerar parábola</button>
-
     </section>
     <canvas id="myCanvas" width="600" height="600"></canvas>
     <script src="index.js"></script>

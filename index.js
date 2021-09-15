@@ -1,3 +1,14 @@
+function getCtx() {
+    const canvas = document.getElementById('myCanvas');
+
+    if (canvas.getContext) {
+        const ctx = canvas.getContext('2d');
+        return ctx;
+    }
+
+    return null;
+}
+
 function drawAxes(ctx, canvasWidth, canvasHeight, distancePoints) {
     ctx.translate(canvasWidth / 2, canvasHeight / 2);
 
@@ -41,14 +52,50 @@ function drawAxes(ctx, canvasWidth, canvasHeight, distancePoints) {
 }
 
 function drawParable() {
-    console.log("hello world")
+    const paramY = document.getElementById('paramY').value;
+    const p = paramY / 2;
+    const p2 = p / 2;
+    console.log(`Foco: (0, ${p2})`)
+    console.log(`Diretriz: ${-p2}`)
+
+    const xFocus = Math.sqrt(paramY * p2);
+    console.log(xFocus)
+    
+    const pWeb = p * 40;
+    const p2Web = p2 * 40;
+
+    const ctx = getCtx();
+    clearCanvas();
+    
+    if (ctx) {
+        ctx.beginPath();
+        let radius = p2Web;
+        let anticlockwise = false;
+        if (p2Web < 0) {
+            radius *= -1;
+            anticlockwise = true;
+        }
+        ctx.arc(0, -p2Web, radius, 0, Math.PI, anticlockwise)
+        ctx.stroke();
+    }
+
+}
+
+function clearCanvas() {
+    const canvas = document.getElementById('myCanvas');
+    
+    if (canvas.getContext) {
+        const ctx = canvas.getContext('2d');
+        ctx.translate(-(canvas.width / 2), - (canvas.height/2));
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawAxes(ctx, canvas.width, canvas.height, 40);
+    }
 }
 
 const canvas = document.getElementById('myCanvas');
 
 if (canvas.getContext) {
     const ctx = canvas.getContext('2d');
-    
-    drawAxes(ctx, 600, 600, 40);
+    drawAxes(ctx, canvas.width, canvas.height, 40);
     
 }
