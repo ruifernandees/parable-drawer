@@ -56,7 +56,11 @@ class Parable {
     }
 
     drawParableXAxis() {
-        const doubleP = document.getElementById('doubleP').value;
+        const doubleP = Number(document.getElementById('doubleP').value);
+
+        if (!doubleP) {
+            return;
+        }
 
         if (doubleP < 1 && doubleP > - 1 && doubleP != 0) {
             return;
@@ -79,12 +83,12 @@ class Parable {
         
         if (this.ctx) {
             this.ctx.beginPath();
-            let radius = symmetricalXWeb;
+            let radius = symmetricalXWeb * 1.15;
             let anticlockwise = false;
             if (doubleP < 0) {
                 anticlockwise = true;
             }
-            this.ctx.arc(0, p2Web * 2, radius, 0, Math.PI, anticlockwise)
+            this.ctx.arc(0, p2Web * 2 * 1.15, radius, 0, Math.PI, anticlockwise)
             this.ctx.strokeStyle = "red";
             this.ctx.stroke();
 
@@ -99,7 +103,11 @@ class Parable {
     }
 
     drawParableYAxis() {
-        const doubleP = document.getElementById('doublePY').value;
+        const doubleP = Number(document.getElementById('doublePY').value);
+
+        if (!doubleP) {
+            return;
+        }
 
         if (doubleP < 1 && doubleP > - 1 && doubleP != 0) {
             return;
@@ -124,12 +132,12 @@ class Parable {
         
         if (this.ctx) {
             this.ctx.beginPath();
-            let radius = symmetricalYWeb;
+            let radius = symmetricalYWeb * 1.25;
             let anticlockwise = false;
             if (doubleP < 0) {
                 anticlockwise = true;
             }
-            this.ctx.arc(p2Web * 2, 0, radius, Math.PI / 2, 1.5 * Math.PI, anticlockwise)
+            this.ctx.arc(p2Web * 2 * 1.25, 0, radius, Math.PI / 2, 1.5 * Math.PI, anticlockwise)
             this.ctx.strokeStyle = "red";
             this.ctx.stroke();
 
