@@ -63,11 +63,11 @@ class Parable {
 
         const p = doubleP / 2;
         const p2 = p / 2;
-        console.log(`Foco: (0, ${p2})`)
-        console.log(`Diretriz: ${-p2}`)
-
+        document.getElementById('focus').innerHTML = `Foco: (0, ${p2})`;
+        document.getElementById('directrix').innerHTML = `Diretriz: ${-p2}`;
+        
         const symmetricalX = Math.sqrt(Math.abs(doubleP * p2));
-        console.log(symmetricalX)
+        document.getElementById('symmetricalPoint').innerHTML = `Pontos simétricos usados: ${symmetricalX} e ${-symmetricalX}`;
         
         const symmetricalXWeb = symmetricalX * 40;
         const p2Web = - (p2 * 40);
@@ -95,11 +95,13 @@ class Parable {
 
         const p = doubleP / 2;
         const p2 = p / 2;
-        console.log(`Foco: (${p2}, 0)`)
-        console.log(`Diretriz: ${-p2}`)
+        document.getElementById('focus').innerHTML = `Foco: (0, ${p2})`;
+        document.getElementById('directrix').innerHTML = `Diretriz: ${-p2}`;
+
 
         const symmetricalY = Math.sqrt(Math.abs(doubleP * p2));
-        console.log(symmetricalY)
+        document.getElementById('symmetricalPoint').innerHTML = `Pontos simétricos usados: ${symmetricalY} e ${-symmetricalY}`;
+
         
         const symmetricalYWeb = symmetricalY * 40;
         const p2Web = (p2 * 40);
